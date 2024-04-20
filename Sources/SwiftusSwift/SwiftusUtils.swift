@@ -12,7 +12,7 @@ import AdSupport
 
 public class SwiftusUtils {
     
-    static func requestATTracking(_ complete: ((_ status: ATTrackingManager.AuthorizationStatus) -> Void)?) {
+    public static func requestATTracking(_ complete: ((_ status: ATTrackingManager.AuthorizationStatus) -> Void)?) {
       ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
           if let action = complete {
               action(status)
@@ -21,7 +21,7 @@ public class SwiftusUtils {
     }
 
     
-    static func shareItems(_ items: [Any]) {
+    public static func shareItems(_ items: [Any]) {
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         guard let currentScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
               print("UNABLE TO GET CURRENT SCENE")
@@ -33,7 +33,7 @@ public class SwiftusUtils {
         currentScene.windows.first?.rootViewController?.present(activityController, animated: true, completion: nil)
     }
     
-    static func durationTime(seconds: Float) -> String {
+    public static func durationTime(seconds: Float) -> String {
         if seconds.isNaN || seconds <= 0.1 {
             return ""
         }
@@ -50,7 +50,7 @@ public class SwiftusUtils {
 
     }
     
-    static func durationTimeRecording(seconds: Float) -> String {
+    public static func durationTimeRecording(seconds: Float) -> String {
         if seconds.isNaN {
             return ""
         }
@@ -69,7 +69,7 @@ public class SwiftusUtils {
 //    }
     
     /// Read plist info mation
-    static func plistInfo() -> [String: Any] {
+    public static func plistInfo() -> [String: Any] {
         var config: [String: Any]?
                 
         if let infoPlistPath = Bundle.main.url(forResource: "Info", withExtension: "plist") {
@@ -87,48 +87,48 @@ public class SwiftusUtils {
     }
     
     /// version 1.0
-    static func appVersion() -> String {
+    public static func appVersion() -> String {
         let config : [String: Any] = SwiftusUtils.plistInfo()
         let value: String? = config["CFBundleShortVersionString"] as? String
         return value ?? ""
     }
     
     ///app name: IDPasport
-    static func appName() -> String {
+    public static func appName() -> String {
         let config : [String: Any] = SwiftusUtils.plistInfo()
         let value: String? = config["CFBundleDisplayName"] as? String
         return value ?? ""
     }
     
     ///com.ORL Products....
-    static func appBundleName() -> String {
+    public static func appBundleName() -> String {
         let config : [String: Any] = SwiftusUtils.plistInfo()
         let value: String? = config["CFBundleName"] as? String
         return value ?? ""
     }
     
     /// build 1
-    static func appBundleVersion() -> String {
+    public static func appBundleVersion() -> String {
         let config : [String: Any] = SwiftusUtils.plistInfo()
         let value: String? = config["CFBundleVersion"] as? String
         return value ?? ""
     }
     
-    ///Device model: iPhone 5S (16.1)
-    static func deviceName() -> String {
-        var device = ""
-        
-        return device
-    }
+//    ///Device model: iPhone 5S (16.1)
+//    public static func deviceName() -> String {
+//        var device = ""
+//        
+//        return device
+//    }
+//    
+//    ///OS version: 16.1
+//    public static func osVersion() -> String {
+//        var version = ""
+//        
+//        return version
+//    }
     
-    ///OS version: 16.1
-    static func osVersion() -> String {
-        var version = ""
-        
-        return version
-    }
-    
-    static func isPhone() -> Bool {
+    public static func isPhone() -> Bool {
         print(UIDevice.current.userInterfaceIdiom)
         if UIDevice.current.userInterfaceIdiom == .phone {
            print("running on iPhone")
