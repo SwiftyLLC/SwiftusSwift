@@ -20,6 +20,10 @@ public class SwiftusUtils {
       })
     }
 
+    public static func openURL(_ url: String) {
+        guard let urlOpen = URL(string: url) else { return }
+        UIApplication.shared.open(urlOpen)
+    }
     
     public static func shareItems(_ items: [Any]) {
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
@@ -135,6 +139,29 @@ public class SwiftusUtils {
             return true
         }
         return false
+    }
+    
+    public static func isRunInPreview() -> Bool {
+        return ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+    }
+    
+    public static func countryLocalFlag(_ local: Locale?) -> String {
+        guard let obj = local else {
+            return ""
+        }
+        let countryCode = obj.identifier.split(separator: "-").last ?? ""
+        debugPrint(countryCode)
+        return String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
+            UnicodeScalar(127397 + $0.value)
+        }))
+    }
+    
+    
+    public static func countryFlag(_ countryCode: String) -> String {
+        debugPrint(countryCode)
+        return String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
+            UnicodeScalar(127397 + $0.value)
+        }))
     }
 }
 
