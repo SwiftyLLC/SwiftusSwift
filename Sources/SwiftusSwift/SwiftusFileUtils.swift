@@ -21,6 +21,26 @@ public class SwiftusFileUtils: NSObject {
         return  FileManager.default.temporaryDirectory
     }
     
+    public class func removeFileIfExit(_ url: URL) {
+        if #available(iOS 16.0, *) {
+            if FileManager.default.fileExists(atPath: url.path()) {
+                do {
+                    try FileManager.default.removeItem(atPath: url.path())
+                } catch {
+                    debugPrint("[FileUtils] removeFileIfExit error: \(error)")
+                }
+            }
+        } else {
+            if FileManager.default.fileExists(atPath: url.path) {
+                do {
+                    try FileManager.default.removeItem(atPath: url.path)
+                } catch {
+                    debugPrint("[FileUtils] removeFileIfExit error: \(error)")
+                }
+            }
+        }
+    }
+
     /// Load data from local file name, use JSONDecoder covert to model T
     public class func loadModelFrom<T: Decodable>(_ filename: String) -> T {
         let data: Data
